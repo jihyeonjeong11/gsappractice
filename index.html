@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/gsap-latest-beta.min.js?r=cahcebustin"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.3.1/ScrollToPlugin.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>IBSTech</title>
+  </head>
+  <body>
+    <section class="first panel">
+      <div><h1>우리는 더 놀라운 경험을 위해 오늘을 혁신합니다</h1></div>
+    </section>
+    <section class="second panel ">
+      <div class="products_scroller">
+        <div class="relative products_card">
+          <h3>product1</h3>
+          <img
+            src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg"
+            alt="test"
+            class="src"
+          />
+        </div>
+        <div class="relative products_card">
+          <h3>product2</h3>
+          <img
+            src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg"
+            alt="test"
+            class="src"
+          />
+        </div>
+        <div class="relative products_card">
+          <h3>product3</h3>
+          <img
+            src="https://cdn.pixabay.com/photo/2018/01/14/23/12/nature-3082832__480.jpg"
+            alt="test"
+            class="src"
+          />
+        </div>
+      </div>
+    </section>
+    <section class="third panel">
+      <div><h1>section3</h1></div>
+    </section>
+
+    <script>
+      gsap.registerPlugin(ScrollTrigger);
+      const instances = [];
+
+      function goToSection(i, anim) {
+        gsap.to(window, {
+          scrollTo: { y: i * innerHeight, autoKill: false },
+          duration: 1,
+        });
+
+        if (anim) {
+          anim.restart();
+        }
+      }
+
+      gsap.utils.toArray(".panel").forEach((panel, i) => {
+        if(i > 1) return
+          instances.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              onEnter: () => goToSection(i),
+              // onEnterBack: () => excuteAnim(i),
+            })
+          );
+
+          instances.push(
+            ScrollTrigger.create({
+              trigger: panel,
+              start: "bottom bottom",
+              onEnterBack: () => goToSection(i),
+            })
+          );
+
+      });
+    </script>
+  </body>
+</html>
